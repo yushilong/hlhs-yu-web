@@ -24,6 +24,9 @@ export const articleAdd = (params) =>
 export const articleQuery = (params) =>
     service.get("/admin/article/all", params);
 
+export const articlePage = (params) =>
+    service.get("/admin/article/page", params);
+
 export const articleDetail = (params) =>
     service.get("/admin/article/detail", params);
 

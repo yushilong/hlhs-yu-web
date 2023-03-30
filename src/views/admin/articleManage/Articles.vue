@@ -27,6 +27,14 @@
     <vxe-column field="author" title="作者"/>
     <vxe-column field="createTime" title="创建时间"/>
   </vxe-table>
+  <vxe-pager
+      background
+      v-model:current-page="pager.current"
+      v-model:page-size="pager.size"
+      @page-change="pageChange"
+      :total="pager.total"
+      :layouts="['PrevJump', 'PrevPage', 'JumpNumber', 'NextPage', 'NextJump', 'Sizes', 'FullJump', 'Total']">
+  </vxe-pager>
   <el-dialog v-model="dialogFormVisible" title="新增入口">
     <el-form :model="formData"
              ref="formInstance"
@@ -54,7 +62,7 @@
 import {onMounted, ref} from "vue";
 import {ElMessage, ElMessageBox} from "element-plus";
 import XEUtils from "xe-utils";
-import {articleAdd, articleDelete, articleQuery, articleUpdate} from "@/http/api";
+import {articleAdd, articleDelete, articlePage, articleUpdate} from "@/http/api";
 
 let dialogFormVisible = ref(false)
 let formData = ref(
@@ -79,14 +87,22 @@ const formRules = ref({
 })
 let isAdd = ref(true)
 const table = ref()
+const pager = ref({
+  current: 0,
+  size: 10,
+  total: 0,
+})
 
 onMounted(() => {
   queryAll()
 })
 
 function queryAll() {
-  articleQuery().then((res) => {
-    table.value.reloadData(res)
+  articlePage({
+    params: pager.value
+  }).then((res) => {
+    table.value.reloadData(res.rows)
+    pager.value.total = res.total
   })
 }
 
@@ -136,5 +152,10 @@ function del() {
       })
     })
   }
+}
+
+function pageChange(e) {
+  pager.value.current = e.currentPage - 1
+  queryAll()
 }
 </script>
