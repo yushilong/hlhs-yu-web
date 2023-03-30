@@ -88,7 +88,7 @@ const formRules = ref({
 let isAdd = ref(true)
 const table = ref()
 const pager = ref({
-  current: 0,
+  current: 1,
   size: 10,
   total: 0,
 })
@@ -155,7 +155,7 @@ function del() {
 }
 
 function pageChange(e) {
-  pager.value.current = e.currentPage - 1
+  pager.value.current = e.currentPage
   queryAll()
 }
 </script>
