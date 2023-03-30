@@ -19,17 +19,13 @@
       :checkbox-config="{highlight:true}">
     <vxe-column type="checkbox"></vxe-column>
     <vxe-column type="seq" title="序号"/>
-    <vxe-column field="logo" title="图标">
+    <vxe-column field="title" title="标题">
       <template #default="{row}">
-        <ElImage :src=row.logo fit="fill" style="width: 40px; height: 40px"/>
+        <ElLink :href="'/admin/article/detail?id='+row.id" type="primary">{{ row.title }}</ElLink>
       </template>
     </vxe-column>
-    <vxe-column field="name" title="名称"/>
-    <vxe-column field="route" title="路由">
-      <template #default="{row}">
-        <el-link type="success" :href=row.route>{{ row.route }}</el-link>
-      </template>
-    </vxe-column>
+    <vxe-column field="author" title="作者"/>
+    <vxe-column field="createTime" title="创建时间"/>
   </vxe-table>
   <el-dialog v-model="dialogFormVisible" title="新增入口">
     <el-form :model="formData"

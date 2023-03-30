@@ -25,6 +25,11 @@ export default [
                 path: "/admin/article/add",
                 name: "adminArticleAdd",
                 component: () => import('../views/admin/articleManage/ArticleAdd.vue')
+            },
+            {
+                path: "/admin/article/detail",
+                name: "adminArticleDetail",
+                component: () => import('../views/admin/articleManage/ArticleDetail.vue')
             }
         ]
     }
